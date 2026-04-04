@@ -49,3 +49,7 @@ ZEN_PROFILE="$HOME/.zen/uqad3y0y.Default (release)"
 if [ -d "$ZEN_PROFILE" ]; then
   cp -r "$THEME_DIR/zen/"* "$ZEN_PROFILE/chrome/"
 fi
+
+# GTK theme (Nautilus, pavucontrol, etc.)
+GTK_THEME=$(cat "$THEME_DIR/gtk")
+gsettings set org.gnome.desktop.interface gtk-theme "$GTK_THEME"

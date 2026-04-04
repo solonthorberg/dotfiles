@@ -25,7 +25,37 @@ sudo pacman -S \
   fzf \
   qbittorrent \
   spotify-launcher \
-  ttf-jetbrains-mono-nerd
+  nautilus \
+  discord \
+  obsidian \
+  dbeaver \
+  vlc \
+  ttf-jetbrains-mono-nerd \
+  noto-fonts \
+  noto-fonts-emoji \
+  grim \
+  slurp \
+  hyprshot \
+  wl-clipboard \
+  cliphist \
+  fastfetch \
+  pipewire \
+  pipewire-pulse \
+  wireplumber \
+  pavucontrol \
+  networkmanager \
+  bluez \
+  bluez-utils \
+  xdg-desktop-portal-hyprland \
+  sddm \
+  nodejs \
+  npm \
+  unzip \
+  wget \
+  man-db \
+  man-pages \
+  fd \
+  tree
 ```
 
 ### AUR
@@ -34,6 +64,7 @@ sudo pacman -S \
 yay -S \
   oh-my-posh \
   zen-browser-bin \
+  nordvpn-bin \
   catppuccin-cursors-mocha \
   catppuccin-cursors-frappe \
   catppuccin-cursors-macchiato \
