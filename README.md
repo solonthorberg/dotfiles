@@ -24,6 +24,7 @@ sudo pacman -S \
   zoxide \
   fzf \
   qbittorrent \
+  spotify-launcher \
   ttf-jetbrains-mono-nerd
 ```
 
@@ -32,6 +33,7 @@ sudo pacman -S \
 ```
 yay -S \
   oh-my-posh \
+  zen-browser-bin \
   catppuccin-cursors-mocha \
   catppuccin-cursors-frappe \
   catppuccin-cursors-macchiato \
@@ -65,6 +67,40 @@ $ stow .
 
 This can cause conflicts if you already have current dotfiles, then either rename them to `*.bak` or remove them.
 
+### Zen Browser Setup
+
+After installing Zen, enable custom styles:
+
+1. Open `about:config` in Zen
+2. Set `toolkit.legacyUserProfileCustomizations.stylesheets` to `true`
+3. Find your Zen profile directory:
+
+```
+$ cat ~/.zen/profiles.ini
+```
+
+4. Copy the theme files to your profile's chrome folder:
+
+```
+$ mkdir -p ~/.zen/<profile-folder>/chrome
+$ cp -r ~/.config/themes/catppuccin-mocha/zen/* ~/.zen/<profile-folder>/chrome/
+```
+
+5. Restart Zen
+
+### Spicetify Setup
+
+After installing Spicetify and Spotify:
+
+```
+$ spicetify config spotify_path ~/.local/share/spotify-launcher/install/usr/share/spotify/
+$ spicetify config prefs_path ~/.config/spotify/prefs
+$ spicetify config current_theme catppuccin
+$ spicetify config color_scheme mocha
+$ spicetify config inject_css 1 inject_theme_js 1 replace_colors 1 overwrite_assets 1
+$ spicetify backup apply
+```
+
 ## Theme Switching
 
 Switch between Catppuccin flavors across all apps:
@@ -76,7 +112,7 @@ $ theme-switch catppuccin-macchiato
 $ theme-switch catppuccin-latte
 ```
 
-This updates Kitty, Hyprland, Waybar, Wofi, Neovim, zsh syntax highlighting, qBittorrent, Spotify, tmux, and cursor theme.
+This updates Kitty, Hyprland, Waybar, Wofi, Neovim, zsh syntax highlighting, qBittorrent, Spotify, tmux, Zen Browser, and cursor theme.
 
 ## Add to the dotfiles repo
 
