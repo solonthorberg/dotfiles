@@ -11,13 +11,61 @@ window#waybar {
 }
 
 .modules-left,
-.modules-center,
-.modules-right {
+.modules-center {
   background-color: alpha(@base, 0.8);
   border-radius: 8px;
-  padding: 10px 10px;
-  margin: 10px 10px;
+  padding: 10px;
+  margin: 10px;
   border: 1px solid alpha(@overlay0, 0.4);
+}
+
+.modules-right {
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  border: none;
+}
+
+#network,
+#temperature,
+#memory,
+#pulseaudio {
+  background-color: alpha(@base, 0.8);
+  padding: 10px 8px;
+  margin: 10px 0;
+}
+
+#network {
+  border-radius: 8px 0 0 8px;
+  margin-left: 10px;
+  padding-left: 14px;
+  border: 1px solid alpha(@overlay0, 0.4);
+  border-right: none;
+}
+
+#temperature,
+#memory {
+  border-top: 1px solid alpha(@overlay0, 0.4);
+  border-bottom: 1px solid alpha(@overlay0, 0.4);
+}
+
+#pulseaudio {
+  border-radius: 0 8px 8px 0;
+  border: 1px solid alpha(@overlay0, 0.4);
+  border-left: none;
+  padding-right: 14px;
+}
+
+#custom-power {
+  background-color: alpha(@base, 0.8);
+  border-radius: 8px;
+  border: 1px solid alpha(@overlay0, 0.4);
+  padding: 2px 18px 2px 16px;
+  margin: 10px 10px 10px 8px;
+}
+
+#custom-power:hover {
+  color: @red;
 }
 
 #workspaces {
@@ -28,19 +76,12 @@ window#waybar {
 #workspaces button {
   all: unset;
   color: @subtext0;
-  padding-left: 3px;
-  padding-right: 3px;
+  padding: 0 3px;
 }
 
 #workspaces button.active {
   color: @text;
   text-decoration: underline;
-}
-
-#network,
-#temperature,
-#memory {
-  padding-right: 8px;
 }
 
 #pulseaudio.muted {
