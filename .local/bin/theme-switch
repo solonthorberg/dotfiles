@@ -33,3 +33,8 @@ QB_THEME=$(cat "$THEME_DIR/qbittorrent")
 killall qbittorrent 2>/dev/null
 sleep 1
 sed -i "s|General\\\\CustomUIThemePath=.*|General\\\\CustomUIThemePath=$HOME/.config/qBittorrent/themes/$QB_THEME|" ~/.config/qBittorrent/qBittorrent.conf
+
+# Spotify
+SPICETIFY_SCHEME=$(cat "$THEME_DIR/spicetify")
+spicetify config color_scheme "$SPICETIFY_SCHEME"
+spicetify apply
