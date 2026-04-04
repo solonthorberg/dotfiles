@@ -1,0 +1,10 @@
+#!/bin/bash
+option=$(echo -e "󰌾 Lock\n󰤄 Sleep\n󰜉 Reboot\n󰐥 Shutdown\n󰗼 Logout" | wofi --dmenu -p "Power")
+
+case "$option" in
+  "󰌾 Lock") hyprlock ;;
+  "󰤄 Sleep") systemctl suspend ;;
+  "󰜉 Reboot") systemctl reboot ;;
+  "󰐥 Shutdown") systemctl poweroff ;;
+  "󰗼 Logout") hyprctl dispatch exit ;;
+esac

@@ -4,7 +4,7 @@
   "height": 30,
   "modules-left": ["hyprland/workspaces"],
   "modules-center": ["clock"],
-  "modules-right": ["network", "memory", "temperature", "pulseaudio"],
+  "modules-right": ["network", "memory", "temperature", "pulseaudio", "custom/power"],
  
   "clock": {
     "format": "{:%H:%M | %a %d %b}",
@@ -49,6 +49,12 @@
     "smooth-scrolling-threshold": 1,
     "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
   },
+
+  "custom/power": {
+    "format": "⏻",
+    "tooltip-format": "Power Menu",
+    "on-click": "power-menu"
+  }
 
   "reload_style_on_change": true
 }

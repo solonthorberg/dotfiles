@@ -36,6 +36,8 @@ sudo pacman -S \
   grim \
   slurp \
   hyprshot \
+  hyprlock \
+  hypridle \
   wl-clipboard \
   cliphist \
   fastfetch \
