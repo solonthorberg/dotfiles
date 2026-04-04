@@ -34,8 +34,10 @@ killall qbittorrent 2>/dev/null
 sleep 1
 sed -i "s|General\\\\CustomUIThemePath=.*|General\\\\CustomUIThemePath=$HOME/.config/qBittorrent/themes/$QB_THEME|" ~/.config/qBittorrent/qBittorrent.conf
 
-# ncspot
-cp "$THEME_DIR/ncspot.toml" ~/.config/ncspot/config.toml
+# Spotify
+SPICETIFY_SCHEME=$(cat "$THEME_DIR/spicetify")
+spicetify config color_scheme "$SPICETIFY_SCHEME"
+spicetify apply
 
 # Tmux
 TMUX_FLAVOR=$(cat "$THEME_DIR/tmux")
@@ -51,3 +53,4 @@ fi
 # GTK theme (Nautilus, pavucontrol, etc.)
 GTK_THEME=$(cat "$THEME_DIR/gtk")
 gsettings set org.gnome.desktop.interface gtk-theme "$GTK_THEME"
+killall nautilus 2>/dev/null
