@@ -54,3 +54,8 @@ fi
 GTK_THEME=$(cat "$THEME_DIR/gtk")
 gsettings set org.gnome.desktop.interface gtk-theme "$GTK_THEME"
 killall nautilus 2>/dev/null
+
+# Cursor
+CURSOR=$(cat "$THEME_DIR/cursor")
+hyprctl setcursor "$CURSOR" 24
+gsettings set org.gnome.desktop.interface cursor-theme "$CURSOR"
