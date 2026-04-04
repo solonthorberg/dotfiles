@@ -24,7 +24,7 @@ sudo pacman -S \
   zoxide \
   fzf \
   qbittorrent \
-  spotify-launcher \
+  ncspot \
   nautilus \
   discord \
   obsidian \
@@ -64,17 +64,16 @@ sudo pacman -S \
 yay -S \
   oh-my-posh \
   zen-browser-bin \
+  postman-bin \
   nordvpn-bin \
+  catppuccin-cursors-mocha \
+  catppuccin-cursors-frappe \
+  catppuccin-cursors-macchiato \
+  catppuccin-cursors-latte \
   catppuccin-gtk-theme-mocha \
   catppuccin-gtk-theme-frappe \
   catppuccin-gtk-theme-macchiato \
   catppuccin-gtk-theme-latte
-```
-
-### Spicetify
-
-```
-curl -fsSL https://raw.githubusercontent.com/spicetify/cli/main/install.sh | sh
 ```
 
 ### Zinit
@@ -119,17 +118,13 @@ $ cp -r ~/.config/themes/catppuccin-mocha/zen/* ~/.zen/<profile-folder>/chrome/
 
 5. Restart Zen
 
-### Spicetify Setup
+### GTK Theme Setup
 
-After installing Spicetify and Spotify:
+Apply the GTK theme for Nautilus and other GTK apps:
 
 ```
-$ spicetify config spotify_path ~/.local/share/spotify-launcher/install/usr/share/spotify/
-$ spicetify config prefs_path ~/.config/spotify/prefs
-$ spicetify config current_theme catppuccin
-$ spicetify config color_scheme mocha
-$ spicetify config inject_css 1 inject_theme_js 1 replace_colors 1 overwrite_assets 1
-$ spicetify backup apply
+$ gsettings set org.gnome.desktop.interface gtk-theme "catppuccin-mocha-mauve-standard+default"
+$ gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"
 ```
 
 ## Theme Switching
@@ -143,7 +138,7 @@ $ theme-switch catppuccin-macchiato
 $ theme-switch catppuccin-latte
 ```
 
-This updates Kitty, Hyprland, Waybar, Wofi, Neovim, zsh syntax highlighting, qBittorrent, Spotify, tmux, Zen Browser, and cursor theme.
+This updates Kitty, Hyprland, Waybar, Wofi, Neovim, zsh syntax highlighting, qBittorrent, ncspot, tmux, Zen Browser, GTK theme, and cursor theme.
 
 ## Add to the dotfiles repo
 

@@ -78,5 +78,3 @@ alias c='clear'
 # shell integrations
 eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
-
-export PATH=$PATH:/home/solonthorberg/.spicetify
