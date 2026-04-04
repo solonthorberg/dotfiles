@@ -66,6 +66,10 @@ yay -S \
   zen-browser-bin \
   postman-bin \
   nordvpn-bin \
+  catppuccin-cursors-mocha \
+  catppuccin-cursors-frappe \
+  catppuccin-cursors-macchiato \
+  catppuccin-cursors-latte \
   catppuccin-gtk-theme-mocha \
   catppuccin-gtk-theme-frappe \
   catppuccin-gtk-theme-macchiato \
