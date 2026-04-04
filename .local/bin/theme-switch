@@ -38,3 +38,8 @@ sed -i "s|General\\\\CustomUIThemePath=.*|General\\\\CustomUIThemePath=$HOME/.co
 SPICETIFY_SCHEME=$(cat "$THEME_DIR/spicetify")
 spicetify config color_scheme "$SPICETIFY_SCHEME"
 spicetify apply
+
+# Tmux
+TMUX_FLAVOR=$(cat "$THEME_DIR/tmux")
+sed -i "s|@catppuccin_flavor.*|@catppuccin_flavor \"$TMUX_FLAVOR\"|" ~/.config/tmux/tmux.conf
+tmux source-file ~/.config/tmux/tmux.conf 2>/dev/null
