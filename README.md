@@ -65,10 +65,10 @@ yay -S \
   oh-my-posh \
   zen-browser-bin \
   nordvpn-bin \
-  catppuccin-cursors-mocha \
-  catppuccin-cursors-frappe \
-  catppuccin-cursors-macchiato \
-  catppuccin-cursors-latte
+  catppuccin-gtk-theme-mocha \
+  catppuccin-gtk-theme-frappe \
+  catppuccin-gtk-theme-macchiato \
+  catppuccin-gtk-theme-latte
 ```
 
 ### Spicetify
