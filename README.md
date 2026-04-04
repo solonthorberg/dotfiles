@@ -32,3 +32,13 @@ then use GNU stow to create symlinks
 ```
 $ stow .
 ```
+
+This can cause conflicts if you already have current dotfiles, then either rename them to `*.bak` or remove them.
+
+## Add to the dotfiles repo
+
+```
+$ mv ~/.config/waybar ~/dotfiles/.config/waybar
+$ cd ~/dotfiles
+$ stow .
+```
