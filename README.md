@@ -19,7 +19,7 @@ sudo pacman -S \
   neovim \
   tmux \
   swww \
-  dunst \
+  swaync \
   zsh \
   zoxide \
   fzf \
