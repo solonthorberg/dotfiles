@@ -1,0 +1,29 @@
+#!/bin/bash
+THEME="$1"
+THEME_DIR="$HOME/.config/themes/$THEME"
+
+if [ ! -d "$THEME_DIR" ]; then
+  echo "Theme '$THEME' not found in ~/.config/themes/"
+  exit 1
+fi
+
+# Kitty
+cp "$THEME_DIR/kitty.conf" ~/.config/kitty/theme.conf
+kitty @ set-colors --all ~/.config/kitty/theme.conf
+
+# Hyprland
+cp "$THEME_DIR/hyprland.conf" ~/.config/hypr/theme.conf
+hyprctl reload
+
+# Waybar
+cp "$THEME_DIR/waybar.css" ~/.config/waybar/theme.css
+killall -SIGUSR2 waybar
+
+# Neovim
+cp "$THEME_DIR/nvim-theme" ~/.config/nvim/current-theme
+
+# Wofi
+cp "$THEME_DIR/wofi.css" ~/.config/wofi/style.css
+
+# Zsh syntax highlighting
+cp "$THEME_DIR/zsh-sh.zsh" ~/.zsh/current-zsh-sh-theme.zsh

@@ -1,0 +1,48 @@
+@import url("theme.css");
+
+* {
+  border: none;
+  font-family: "JetBrainsMono Nerd Font";
+}
+
+window#waybar {
+  background: transparent;
+  color: @text;
+}
+
+.modules-left,
+.modules-center,
+.modules-right {
+  background-color: alpha(@base, 0.8);
+  border-radius: 8px;
+  padding: 10px 10px;
+  margin: 10px 10px;
+  border: 1px solid alpha(@overlay0, 0.4);
+}
+
+#workspaces {
+  background-color: transparent;
+  padding: 0.3em;
+}
+
+#workspaces button {
+  all: unset;
+  color: @subtext0;
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
+#workspaces button.active {
+  color: @text;
+  text-decoration: underline;
+}
+
+#network,
+#temperature,
+#memory {
+  padding-right: 8px;
+}
+
+#pulseaudio.muted {
+  color: @red;
+}
