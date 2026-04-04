@@ -59,3 +59,8 @@ killall nautilus 2>/dev/null
 CURSOR=$(cat "$THEME_DIR/cursor")
 hyprctl setcursor "$CURSOR" 24
 gsettings set org.gnome.desktop.interface cursor-theme "$CURSOR"
+
+# Notifications (swaync)
+cp "$THEME_DIR/swaync.css" ~/.config/swaync/style.css
+sed -i "s/font-family: 'Ubuntu Nerd Font'/font-family: 'JetBrainsMono Nerd Font'/" ~/.config/swaync/style.css
+swaync-client -rs
