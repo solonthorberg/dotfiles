@@ -27,3 +27,9 @@ cp "$THEME_DIR/wofi.css" ~/.config/wofi/style.css
 
 # Zsh syntax highlighting
 cp "$THEME_DIR/zsh-sh.zsh" ~/.zsh/current-zsh-sh-theme.zsh
+
+# qBittorrent
+QB_THEME=$(cat "$THEME_DIR/qbittorrent")
+killall qbittorrent 2>/dev/null
+sleep 1
+sed -i "s|General\\\\CustomUIThemePath=.*|General\\\\CustomUIThemePath=$HOME/.config/qBittorrent/themes/$QB_THEME|" ~/.config/qBittorrent/qBittorrent.conf
