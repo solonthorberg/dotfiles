@@ -6,16 +6,31 @@ Directory contains dotfiles for my Arch Setup
 
 Ensure you have the following installed on your system
 
-### Git
+### Packages
 
 ```
-sudo pacman -S git
+sudo pacman -S \
+  git \
+  stow \
+  hyprland \
+  kitty \
+  waybar \
+  wofi \
+  neovim \
+  tmux \
+  swww \
+  dunst \
+  zsh \
+  zoxide \
+  fzf \
+  ttf-jetbrains-mono-nerd
 ```
 
-### Stow
+### AUR
 
 ```
-sudo pacman -S stow
+yay -S \
+oh-my-posh
 ```
 
 ## Installation
