@@ -20,6 +20,7 @@ sudo pacman -S \
   tmux \
   swww \
   swaync \
+  swayimg \
   zsh \
   zoxide \
   fzf \

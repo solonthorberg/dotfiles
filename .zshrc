@@ -29,6 +29,7 @@ zinit snippet OMZP::git
 zinit snippet OMZP::sudo
 zinit snippet OMZP::archlinux
 zinit snippet OMZP::tmux
+zinit snippet OMZP::colored-man-pages
 zinit snippet OMZP::command-not-found
 
 autoload -Uz compinit && compinit
@@ -71,7 +72,8 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 
 # aliases
-alias ls='ls --color'
+alias ls='ls --color=auto'
+alias l='ls -lah --color=auto'
 alias vim='nvim'
 alias c='clear'
 
