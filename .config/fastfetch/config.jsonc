@@ -1,0 +1,28 @@
+{
+    "modules": [
+        "title",
+        "separator",
+        "os",
+        "host",
+        "kernel",
+        "uptime",
+        "packages",
+        "shell",
+        "display",
+        "de",
+        "wm",
+        "wmtheme",
+        "theme",
+        "icons",
+        "terminal",
+        "terminalfont",
+        "cpu",
+        "gpu",
+        "memory",
+        "swap",
+        "disk",
+        "localip",
+        "locale",
+        "break"
+    ]
+}
