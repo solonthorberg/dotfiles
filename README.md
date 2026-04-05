@@ -18,7 +18,7 @@ sudo pacman -S \
   wofi \
   neovim \
   tmux \
-  swww \
+  awww \
   swaync \
   swayimg \
   zsh \
@@ -88,8 +88,8 @@ Installed automatically via `.zshrc` on first shell load.
 First, check out the dotfiles repo in your $HOME directory using git
 
 ```
-$ git clone git@github.com:solonthorberg/dotfiles.git
-$ cd dotfiles
+$ git clone git@github.com:solonthorberg/dotfiles.git ~/.dotfiles
+$ cd ~/.dotfiles
 ```
 
 then use GNU stow to create symlinks
@@ -146,6 +146,28 @@ $ gsettings set org.gnome.desktop.interface gtk-theme "catppuccin-mocha-mauve-st
 $ gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"
 ```
 
+For GTK4/libadwaita apps (Nautilus), also symlink the theme's GTK4 CSS:
+
+```
+$ mkdir -p ~/.config/gtk-4.0
+$ ln -sf /usr/share/themes/catppuccin-mocha-mauve-standard+default/gtk-4.0/gtk.css ~/.config/gtk-4.0/gtk.css
+$ ln -sf /usr/share/themes/catppuccin-mocha-mauve-standard+default/gtk-4.0/gtk-dark.css ~/.config/gtk-4.0/gtk-dark.css
+$ ln -sf /usr/share/themes/catppuccin-mocha-mauve-standard+default/gtk-4.0/assets ~/.config/gtk-4.0/assets
+```
+
+(This is automated by `theme-switch` going forward.)
+
+### Obsidian Setup
+
+After installing Obsidian and opening your vault(s):
+
+1. Install the **Catppuccin** theme: Settings → Appearance → Themes → Manage → search "Catppuccin" → Install and use
+2. Install community plugins:
+   - **Style Settings** (by mgmeyers)
+   - **Advanced URI** (by Vinzent) — required for `theme-switch` to reload Obsidian
+3. Disable appearance sync (if using Obsidian Sync):
+   Settings → Sync → Vault configuration sync → turn OFF **Appearance settings**
+
 ## Theme Switching
 
 Switch between Catppuccin flavors across all apps:
@@ -157,7 +179,7 @@ $ theme-switch catppuccin-macchiato
 $ theme-switch catppuccin-latte
 ```
 
-This updates Kitty, Hyprland, Waybar, Wofi, Neovim, zsh syntax highlighting, qBittorrent, spotify-launcer, tmux, Zen Browser, GTK theme, and cursor theme.
+This updates Kitty, Hyprland, Waybar, Wofi, Neovim, zsh syntax highlighting, qBittorrent, spotify-launcher, tmux, Zen Browser, GTK theme (GTK3 + GTK4/libadwaita), cursor theme, swaync notifications, and Obsidian.
 
 ## Add to the dotfiles repo
 

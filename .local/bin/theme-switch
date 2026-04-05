@@ -37,7 +37,8 @@ sed -i "s|General\\\\CustomUIThemePath=.*|General\\\\CustomUIThemePath=$HOME/.co
 # Spotify
 SPICETIFY_SCHEME=$(cat "$THEME_DIR/spicetify")
 spicetify config color_scheme "$SPICETIFY_SCHEME"
-spicetify apply
+spicetify apply --no-restart 2>/dev/null
+pkill -x spotify 2>/dev/null
 
 # Tmux
 TMUX_FLAVOR=$(cat "$THEME_DIR/tmux")
@@ -52,8 +53,22 @@ fi
 
 # GTK theme (Nautilus, pavucontrol, etc.)
 GTK_THEME=$(cat "$THEME_DIR/gtk")
+GTK_SCHEME=$(cat "$THEME_DIR/gtk-scheme")
+
+# GTK3 apps (pavucontrol, older GNOME tools)
 gsettings set org.gnome.desktop.interface gtk-theme "$GTK_THEME"
-killall nautilus 2>/dev/null
+
+# Color scheme preference (dark/light)
+gsettings set org.gnome.desktop.interface color-scheme "$GTK_SCHEME"
+
+# GTK4/libadwaita CSS overrides (Nautilus, Files, modern GNOME apps)
+rm -f ~/.config/gtk-4.0/gtk.css ~/.config/gtk-4.0/gtk-dark.css ~/.config/gtk-4.0/assets
+mkdir -p ~/.config/gtk-4.0
+ln -sf "/usr/share/themes/$GTK_THEME/gtk-4.0/gtk.css" ~/.config/gtk-4.0/gtk.css
+ln -sf "/usr/share/themes/$GTK_THEME/gtk-4.0/gtk-dark.css" ~/.config/gtk-4.0/gtk-dark.css
+ln -sf "/usr/share/themes/$GTK_THEME/gtk-4.0/assets" ~/.config/gtk-4.0/assets
+
+nautilus -q 2>/dev/null
 
 # Cursor
 CURSOR=$(cat "$THEME_DIR/cursor")
@@ -64,3 +79,28 @@ gsettings set org.gnome.desktop.interface cursor-theme "$CURSOR"
 cp "$THEME_DIR/swaync.css" ~/.config/swaync/style.css
 sed -i "s/font-family: 'Ubuntu Nerd Font'/font-family: 'JetBrainsMono Nerd Font'/" ~/.config/swaync/style.css
 swaync-client -rs
+
+# Obsidian (single vault at ~/Notes, via Style Settings + base scheme)
+OBSIDIAN_FLAVOR=$(cat "$THEME_DIR/obsidian-flavor")
+VAULT="$HOME/Notes"
+STYLE_DATA="$VAULT/.obsidian/plugins/obsidian-style-settings/data.json"
+APPEARANCE="$VAULT/.obsidian/appearance.json"
+
+if [ "$OBSIDIAN_FLAVOR" = "latte" ]; then
+  if [ -f "$APPEARANCE" ]; then
+    jq '.theme = "moonstone"' "$APPEARANCE" > "$APPEARANCE.tmp" && mv "$APPEARANCE.tmp" "$APPEARANCE"
+  fi
+else
+  if [ -f "$APPEARANCE" ]; then
+    jq '.theme = "obsidian"' "$APPEARANCE" > "$APPEARANCE.tmp" && mv "$APPEARANCE.tmp" "$APPEARANCE"
+  fi
+  if [ -f "$STYLE_DATA" ]; then
+    jq --arg flavor "$OBSIDIAN_FLAVOR" \
+       '."catppuccin-theme-settings@@catppuccin-theme-dark" = $flavor' \
+       "$STYLE_DATA" > "$STYLE_DATA.tmp" && mv "$STYLE_DATA.tmp" "$STYLE_DATA"
+  fi
+fi
+
+if pgrep -f obsidian >/dev/null; then
+  xdg-open "obsidian://advanced-uri?commandid=app%3Areload" >/dev/null 2>&1
+fi
