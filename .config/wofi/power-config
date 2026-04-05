@@ -1,0 +1,10 @@
+width=250
+height=280
+location=center
+prompt=Power
+filter_rate=100
+allow_markup=true
+no_actions=true
+halign=fill
+content_halign=fill
+insensitive=true
