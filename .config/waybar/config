@@ -52,7 +52,7 @@
   "custom/power": {
     "format": "⏻",
     "tooltip-format": "Power Menu",
-    "on-click": "power-menu"
+    "on-click": "$HOME/.local/bin/power-menu"
   },
 
   "reload_style_on_change": true

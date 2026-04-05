@@ -1,6 +1,8 @@
 #!/bin/bash
-option=$(echo -e "󰌾 Lock\n󰤄 Sleep\n󰜉 Reboot\n󰐥 Shutdown\n󰗼 Logout" | wofi --dmenu -p "Power")
-
+option=$(echo -e "󰌾 Lock\n󰤄 Sleep\n󰜉 Reboot\n󰐥 Shutdown\n󰗼 Logout" | \
+  wofi --dmenu \
+       --conf ~/.config/wofi/power-config \
+       --style ~/.config/wofi/power-style.css)
 case "$option" in
   "󰌾 Lock") hyprlock ;;
   "󰤄 Sleep") systemctl suspend ;;

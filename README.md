@@ -100,6 +100,22 @@ $ stow .
 
 This can cause conflicts if you already have current dotfiles, then either rename them to `*.bak` or remove them.
 
+### Monitor Configuration
+
+After cloning and stowing, create a per-machine monitor config:
+
+\```
+$ nvim ~/.config/hypr/monitors.conf
+\```
+
+Example content:
+\```
+monitor = eDP-1, preferred, 0x0, 1.25
+monitor = , preferred, auto, 1
+\```
+
+Find your output names with `hyprctl monitors`.
+
 ### Zen Browser Setup
 
 After installing Zen, enable custom styles:
