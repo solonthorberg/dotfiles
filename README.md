@@ -21,7 +21,6 @@ sudo pacman -S \
   awww \
   swaync \
   swayimg \
-  smem \
   zsh \
   zoxide \
   fzf \
@@ -70,6 +69,7 @@ yay -S \
   zen-browser-bin \
   postman-bin \
   nordvpn-bin \
+  smem \
   catppuccin-cursors-mocha \
   catppuccin-cursors-frappe \
   catppuccin-cursors-macchiato \
