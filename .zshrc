@@ -28,7 +28,7 @@ zinit snippet OMZL::git.zsh
 zinit snippet OMZP::git
 zinit snippet OMZP::sudo
 zinit snippet OMZP::archlinux
-zinit snippet OMZP::tmux
+# zinit snippet OMZP::tmux
 zinit snippet OMZP::colored-man-pages
 zinit snippet OMZP::command-not-found
 
@@ -76,6 +76,17 @@ alias ls='ls --color=auto'
 alias l='ls -lah --color=auto'
 alias vim='nvim'
 alias c='clear'
+
+
+fman() {
+  local line
+  line=$(man -k . 2>/dev/null | fzf --preview 'echo {} | awk "{print \$1}" | xargs man 2>/dev/null | head -80' --preview-window=right:60%:wrap)
+  if [[ -n "$line" ]]; then
+    local name=$(echo "$line" | awk '{print $1}')
+    local section=$(echo "$line" | grep -oP '\(\K[0-9a-z]+' | head -1)
+    man "$section" "$name" 2>/dev/null || man "$name"
+  fi
+}
 
 # shell integrations
 eval "$(fzf --zsh)"

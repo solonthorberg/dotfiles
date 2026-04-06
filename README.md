@@ -21,6 +21,7 @@ sudo pacman -S \
   awww \
   swaync \
   swayimg \
+  smem \
   zsh \
   zoxide \
   fzf \
