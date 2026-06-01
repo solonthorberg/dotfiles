@@ -105,7 +105,7 @@ vim.o.number = true
 vim.o.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
-vim.o.mouse = 'a'
+vim.o.mouse = ''
 
 -- Don't show the mode, since it's already in the status line
 vim.o.showmode = false
@@ -163,6 +163,11 @@ vim.o.scrolloff = 10
 -- instead raise a dialog asking if you wish to save the current file(s)
 -- See `:help 'confirm'`
 vim.o.confirm = true
+
+vim.opt.expandtab = true
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.softtabstop = 4
 
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
@@ -632,10 +637,12 @@ require('lazy').setup({
       local servers = {
         clangd = {},
         cssls = {},
+        tailwindcss = {},
         html = {},
         jsonls = {},
         gopls = {},
-        pyright = {},
+        basedpyright = {},
+        ruff = {},
         rust_analyzer = {},
         ts_ls = {},
         bashls = {},
@@ -744,9 +751,11 @@ require('lazy').setup({
       end,
       formatters_by_ft = {
         lua = { 'stylua' },
-        python = { 'ruff' },
+        python = { 'ruff_format' },
         javascript = { 'prettierd', 'prettier', stop_after_first = true },
         typescript = { 'prettierd', 'prettier', stop_after_first = true },
+        javascriptreact = { 'prettierd', 'prettier', stop_after_first = true },
+        typescriptreact = { 'prettierd', 'prettier', stop_after_first = true },
         html = { 'prettier' },
         css = { 'prettier' },
         json = { 'prettier' },
@@ -992,6 +1001,10 @@ require('lazy').setup({
     end,
   },
 
+  {
+    'windwp/nvim-ts-autotag',
+    opts = {},
+  },
   {
     'iamcco/markdown-preview.nvim',
     cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
