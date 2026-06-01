@@ -1,1 +1,2 @@
-require 'core.keymaps'
+require 'nvim-dotfiles.core.options'
+require 'nvim-dotfiles.core.keymaps'

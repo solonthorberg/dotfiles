@@ -12,6 +12,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup {
-  { import = 'nvim-dotfiles.plugins.mason' },
+  { import = 'nvim-dotfiles.plugins.lsp' },
   { import = 'nvim-dotfiles.plugins' },
 }
