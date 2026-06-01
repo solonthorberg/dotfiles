@@ -35,6 +35,7 @@ themes.items = {
           fidget = true,
           mason = true,
           mini = true,
+          render_markdown = true,
         },
       }
     end,
