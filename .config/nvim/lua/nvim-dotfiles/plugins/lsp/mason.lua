@@ -117,6 +117,7 @@ return {
       'tailwindcss-language-server',
       'taplo',
       'yaml-language-server',
+      'markdownlint-cli2',
     })
 
     require('mason-tool-installer').setup { ensure_installed = ensure_installed }
