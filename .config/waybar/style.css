@@ -2,88 +2,45 @@
 
 * {
   border: none;
+  min-height: 0;
   font-family: "JetBrainsMono Nerd Font";
+  font-size: 16px;
 }
 
 window#waybar {
-  background: transparent;
+  all: unset;
+  background: alpha(@base, 0.85);
   color: @text;
 }
 
-.modules-left,
-.modules-center {
-  background-color: alpha(@base, 0.8);
-  border-radius: 8px;
-  padding: 10px;
-  margin: 10px;
-  border: 1px solid alpha(@overlay0, 0.4);
+window#waybar > box {
+  padding: 0 10px;
 }
 
-.modules-right {
-  background: transparent;
-  padding: 0;
+#workspaces button {
+  padding: 0 4px;
   margin: 0;
-  border: none;
+  min-width: 0;
+  color: @subtext0;
+}
+
+#workspaces button.focused {
+  color: @text;
 }
 
 #network,
 #temperature,
 #memory,
-#pulseaudio {
-  background-color: alpha(@base, 0.8);
-  padding: 10px 8px;
-  margin: 10px 0;
-}
-
-#network {
-  border-radius: 8px 0 0 8px;
-  margin-left: 10px;
-  padding-left: 14px;
-  border: 1px solid alpha(@overlay0, 0.4);
-  border-right: none;
-}
-
-#temperature,
-#memory {
-  border-top: 1px solid alpha(@overlay0, 0.4);
-  border-bottom: 1px solid alpha(@overlay0, 0.4);
-}
-
-#pulseaudio {
-  border-radius: 0 8px 8px 0;
-  border: 1px solid alpha(@overlay0, 0.4);
-  border-left: none;
-  padding-right: 14px;
-}
-
+#pulseaudio,
 #custom-power {
-  background-color: alpha(@base, 0.8);
-  border-radius: 8px;
-  border: 1px solid alpha(@overlay0, 0.4);
-  padding: 2px 18px 2px 16px;
-  margin: 10px 10px 10px 8px;
-}
-
-#custom-power:hover {
-  color: @red;
-}
-
-#workspaces {
-  background-color: transparent;
-  padding: 0.3em;
-}
-
-#workspaces button {
-  all: unset;
+  padding: 0 10px;
   color: @subtext0;
-  padding: 0 3px;
-}
-
-#workspaces button.active {
-  color: @text;
-  text-decoration: underline;
 }
 
 #pulseaudio.muted {
+  color: @red;
+}
+
+#custom-power:hover {
   color: @red;
 }
