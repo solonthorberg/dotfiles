@@ -188,6 +188,6 @@ To add a new config, move it from its current location into the dotfiles directo
 
 ```
 $ mv ~/.config/waybar ~/dotfiles/.config/waybar
-$ cd ~/dotfiles
+$ cd ~/.dotfiles
 $ stow .
 ```
