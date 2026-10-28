@@ -12,19 +12,14 @@ require("monitors") -- ~/.config/hypr/monitors.lua (per-machine, stow-ignored)
 
 local terminal = "kitty"
 local fileManager = "nautilus"
-local menu = "wofi --show drun"
+local menu = "noctalia msg panel-toggle launcher"
 
 -------------------
 ---- AUTOSTART ----
 -------------------
 
 hl.on("hyprland.start", function()
-	hl.exec_cmd("waybar")
-	hl.exec_cmd("awww-daemon & sleep 1 && awww img $HOME/Pictures/Wallpapers/wallpaper.png --transition-type none")
-	hl.exec_cmd("wl-paste --type text --watch cliphist store")
-	hl.exec_cmd("wl-paste --type image --watch cliphist store")
-	hl.exec_cmd("swaync")
-	hl.exec_cmd("hypridle")
+	hl.exec_cmd("noctalia")
 	hl.exec_cmd("aw-server")
 	hl.exec_cmd("sleep 5 && aw-awatcher")
 end)
@@ -37,6 +32,7 @@ hl.env("GBM_BACKEND", "nvidia-drm")
 hl.env("__GLX_VENDOR_LIBRARY_NAME", "nvidia")
 hl.env("LIBVA_DRIVER_NAME", "nvidia")
 hl.env("__GL_VRR_ALLOWED", "0")
+hl.env("QT_QPA_PLATFORMTHEME", "qt6ct")
 
 hl.env("XCURSOR_SIZE", "24")
 
@@ -48,8 +44,6 @@ hl.env("MOZ_DBUS_REMOTE", "1")
 ---- LOOK AND FEEL ----
 -----------------------
 
-local theme = require("theme") -- ~/.config/hypr/theme.lua
-
 hl.config({
 	cursor = {
 		no_hardware_cursors = true,
@@ -60,11 +54,6 @@ hl.config({
 		gaps_out = 10,
 
 		border_size = 2,
-
-		col = {
-			active_border = theme.mauve,
-			inactive_border = theme.surface0,
-		},
 
 		resize_on_border = false,
 		allow_tearing = false,
@@ -109,7 +98,7 @@ hl.config({
 	misc = {
 		force_default_wallpaper = -1,
 		disable_hyprland_logo = false,
-		vrr = 1,
+		vrr = 0,
 	},
 
 	input = {
@@ -180,9 +169,13 @@ hl.bind(mainMod .. " + F", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd(menu))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit"))
-hl.bind(mainMod .. " + N", hl.dsp.exec_cmd("swaync-client -t"))
-hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("hyprlock"))
-hl.bind(mainMod .. " + X", hl.dsp.exec_cmd("/home/solonthorberg/.local/bin/power-menu"))
+
+-- Noctalia
+hl.bind(mainMod .. " + N", hl.dsp.exec_cmd("noctalia msg notification-dnd-toggle"))
+hl.bind(mainMod .. " + X", hl.dsp.exec_cmd("noctalia msg panel-toggle control-center"))
+
+-- Lock
+hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("noctalia msg screen-lock"))
 
 -- Move focus
 hl.bind(mainMod .. " + left", hl.dsp.focus({ direction = "left" }))
@@ -225,12 +218,7 @@ hl.bind(
 hl.bind(mainMod .. " + SHIFT + S", hl.dsp.exec_cmd("hyprshot -m region --clipboard-only"))
 
 -- Clipboard
-hl.bind(
-	mainMod .. " + V",
-	hl.dsp.exec_cmd(
-		[[cliphist list | wofi --dmenu --pre-display-cmd "echo '%s' | cut -f 2" | cliphist decode | wl-copy]]
-	)
-)
+hl.bind(mainMod .. " + V", hl.dsp.exec_cmd("noctalia msg panel-toggle clipboard"))
 
 --------------------------------
 ---- WINDOWS AND WORKSPACES ----
@@ -256,3 +244,6 @@ hl.window_rule({
 	match = { class = "^(mpv|vlc|firefox|zen|obsidian|kitty)$" },
 	opacity = "1.0 override",
 })
+
+-- For Noctalia Color templates
+require("noctalia").apply_theme()

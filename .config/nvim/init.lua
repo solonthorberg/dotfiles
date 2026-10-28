@@ -8,13 +8,8 @@ if stat and stat.size > max_lsp_log_size then
 end
 vim.lsp.log.set_level(vim.log.levels.ERROR)
 
-require 'nvim-dotfiles.core'
-require 'nvim-dotfiles.lazy'
+require 'core'
+require 'lazy-setup'
 
--- Load colorscheme from theme switcher
-local theme_file = vim.fn.expand '~/.config/nvim/current-theme'
-if vim.fn.filereadable(theme_file) == 1 then
-  vim.cmd.colorscheme(vim.fn.readfile(theme_file)[1])
-else
-  vim.cmd.colorscheme 'catppuccin'
-end
+local ok, matugen = pcall(require, 'matugen')
+if ok then matugen.setup() end

@@ -1,28 +1,47 @@
 {
-    "modules": [
-        "title",
-        "separator",
-        "os",
-        "host",
-        "kernel",
-        "uptime",
-        "packages",
-        "shell",
-        "display",
-        "de",
-        "wm",
-        "wmtheme",
-        "theme",
-        "icons",
-        "terminal",
-        "terminalfont",
-        "cpu",
-        "gpu",
-        "memory",
-        "swap",
-        "disk",
-        "localip",
-        "locale",
-        "break"
-    ]
+  "modules": [
+    "title",
+    "separator",
+    "os",
+    "host",
+    "kernel",
+    "uptime",
+    "packages",
+    "shell",
+    "display",
+    "de",
+    "wm",
+    "wmtheme",
+    "theme",
+    "icons",
+    "terminal",
+    "terminalfont",
+    "cpu",
+    "gpu",
+    "memory",
+    "swap",
+    "disk",
+    "localip",
+    "locale",
+    "break"
+  ],
+  "logo": {
+    "color": {
+      "1": "#63a2f7",
+      "2": "#bb63f7"
+    }
+  },
+  "display": {
+    "color": {
+      "keys": "#7aa2f7",
+      "title": "#bb9af7"
+    },
+    "percent": {
+      "color": {
+        "green": "#9ece6a",
+        "yellow": "#87abf8",
+        "red": "#f7768e"
+      }
+    }
+  }
 }

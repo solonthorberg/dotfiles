@@ -9,7 +9,6 @@ fi
 source "${ZINIT_HOME}/zinit.zsh"
 
 # syntax highlighting
-source ~/.zsh/current-zsh-sh-theme.zsh
 zinit light zsh-users/zsh-syntax-highlighting
 
 # auto completions
@@ -38,14 +37,6 @@ zinit cdreplay -q
 
 # promt
 eval "$(oh-my-posh init zsh --config $HOME/.config/ohmyposh/base.toml)"
-
-# theme-switch
-export PATH="$HOME/.local/bin:$PATH"
-
-_theme_switch() {
-  compadd $(ls ~/.config/themes/)
-}
-compdef _theme_switch theme-switch
 
 # keybinds
 bindkey -v
@@ -92,4 +83,4 @@ fman() {
 eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
 
-export PATH=$PATH:/home/solonthorberg/.spicetify
+export EDITOR=nvim
