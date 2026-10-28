@@ -1,3 +1,6 @@
 install.log
 .config/tmux/plugins/
+.config/hypr/monitors.lua
 .config/nvim/lua/matugen.lua
+.config/tmux/themes/noctalia.conf
+.config/fastfetch/themes/noctalia.jsonc

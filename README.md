@@ -13,13 +13,13 @@ sudo pacman -S \
   git \
   stow \
   hyprland \
+  noctalia \
+  noctalia-greeter \
+  greetd \
+  qt6ct \
   kitty \
-  waybar \
-  wofi \
   neovim \
   tmux \
-  awww \
-  swaync \
   swayimg \
   zsh \
   zoxide \
@@ -27,7 +27,6 @@ sudo pacman -S \
   qbittorrent \
   spotify-launcher \
   nautilus \
-  discord \
   obsidian \
   dbeaver \
   vlc \
@@ -37,10 +36,7 @@ sudo pacman -S \
   grim \
   slurp \
   hyprshot \
-  hyprlock \
-  hypridle \
   wl-clipboard \
-  cliphist \
   fastfetch \
   pipewire \
   pipewire-pulse \
@@ -50,7 +46,7 @@ sudo pacman -S \
   bluez \
   bluez-utils \
   xdg-desktop-portal-hyprland \
-  sddm \
+  polkit \
   nodejs \
   npm \
   unzip \
@@ -67,17 +63,10 @@ sudo pacman -S \
 yay -S \
   oh-my-posh \
   zen-browser-bin \
+  vesktop-bin \
   postman-bin \
   nordvpn-bin \
-  smem \
-  catppuccin-cursors-mocha \
-  catppuccin-cursors-frappe \
-  catppuccin-cursors-macchiato \
-  catppuccin-cursors-latte \
-  catppuccin-gtk-theme-mocha \
-  catppuccin-gtk-theme-frappe \
-  catppuccin-gtk-theme-macchiato \
-  catppuccin-gtk-theme-latte
+  smem
 ```
 
 ### Zinit
@@ -103,91 +92,139 @@ This can cause conflicts if you already have current dotfiles, then either renam
 
 ### Monitor Configuration
 
-After cloning and stowing, create a per-machine monitor config:
+After cloning and stowing, create a per-machine monitor config (it is stow-ignored and gitignored, so each machine keeps its own):
 
-\```
-$ nvim ~/.config/hypr/monitors.conf
-\```
+```
+$ nvim ~/.config/hypr/monitors.lua
+```
 
-Example content:
-\```
-monitor = eDP-1, preferred, 0x0, 1.25
-monitor = , preferred, auto, 1
-\```
+`hyprland.lua` loads it with `require("monitors")`. Find your output names with `hyprctl monitors`.
 
-Find your output names with `hyprctl monitors`.
+## Shell (Noctalia)
 
-### Zen Browser Setup
+[Noctalia](https://docs.noctalia.dev/noctalia/) provides the bar, launcher, notifications, clipboard history, wallpaper, lock screen, idle handling and power menu. It is started from the autostart block in `hyprland.lua`.
 
-After installing Zen, enable custom styles:
+Open its settings with:
+
+```
+$ noctalia msg settings-toggle
+```
+
+On first setup:
+
+- **Wallpaper**: point it at `~/Pictures/Wallpapers/`
+- **Services → Idle**: set lock / screen-off / lock-before-sleep timeouts
+- **Bar: default**: set up the bar widgets
+
+Keybinds in `hyprland.lua`:
+
+| Keys          | Action                      |
+| ------------- | --------------------------- |
+| `SUPER+SPACE` | Launcher                    |
+| `SUPER+V`     | Clipboard history           |
+| `SUPER+X`     | Control Center (power menu) |
+| `SUPER+N`     | Toggle Do Not Disturb       |
+| `SUPER+L`     | Lock screen                 |
+
+## Theming
+
+All colors come from Noctalia's palette through its templates (**Settings → Templates**). There is no theme switcher anymore: change the palette or wallpaper in Noctalia and every templated app follows.
+
+Enabled templates:
+
+- **Built-in**: Hyprland, Kitty, Btop, GTK 3, GTK 4, Qt
+- **Community**: neovim, oh-my-posh, zen-browser, discord, tmux, fastfetch
+
+Some apps need a one-time setup to pick up the generated colors:
+
+### Qt apps (qBittorrent)
+
+Qt apps read the colors through qt6ct. The environment variable is set in `~/.config/environment.d/qt.conf`:
+
+```
+QT_QPA_PLATFORMTHEME=qt6ct
+```
+
+`hyprland.lua` also pushes it to systemd at startup (before Noctalia starts), so apps launched from the launcher get it:
+
+```lua
+hl.exec_cmd("dbus-update-activation-environment --systemd QT_QPA_PLATFORMTHEME")
+```
+
+Then open `qt6ct`, set **Style** to **Fusion** and **Color scheme** to **noctalia**.
+
+In qBittorrent, make sure **Tools → Options → Behavior → Use custom UI Theme** is unticked.
+
+### Neovim
+
+The template writes `lua/matugen.lua`, which needs the `RRethy/base16-nvim` plugin (spec in `lua/plugins/base16.lua`), and `init.lua` loads the colors with:
+
+```lua
+local ok, matugen = pcall(require, 'matugen')
+if ok then matugen.setup() end
+```
+
+### Zen Browser
 
 1. Open `about:config` in Zen
 2. Set `toolkit.legacyUserProfileCustomizations.stylesheets` to `true`
-3. Find your Zen profile directory:
+3. Enable the **zen-browser** template. It writes the CSS to `~/.cache/noctalia/zen-browser/` and adds the `@import` lines to the profile's `chrome/userChrome.css` and `chrome/userContent.css`
+4. Open `about:support` → **Clear startup cache…** (Zen restarts and loads the new CSS)
 
-```
-$ cat ~/.zen/profiles.ini
-```
+If a palette change doesn't show up in Zen, clear the startup cache again.
 
-4. Copy the theme files to your profile's chrome folder:
+### Discord (Vesktop)
 
-```
-$ mkdir -p ~/.zen/<profile-folder>/chrome
-$ cp -r ~/.config/themes/catppuccin-mocha/zen/* ~/.zen/<profile-folder>/chrome/
-```
+The official Discord client can't load themes, so Discord runs through Vesktop. After enabling the **discord** template, open Vesktop's **Settings → Vencord → Themes** and enable one of the Noctalia themes (Midnight, System24 or Material).
 
-5. Restart Zen
+## Login Screen (Noctalia Greeter)
 
-### GTK Theme Setup
+Login goes through greetd with [noctalia-greeter](https://docs.noctalia.dev/greeter/).
 
-Apply the GTK theme for Nautilus and other GTK apps:
+Set the greeter in `/etc/greetd/config.toml` (merge into the existing `[default_session]`, don't overwrite the file):
 
-```
-$ gsettings set org.gnome.desktop.interface gtk-theme "catppuccin-mocha-mauve-standard+default"
-$ gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"
+```toml
+[default_session]
+command = "/usr/bin/noctalia-greeter-session"
+user = "greeter"
 ```
 
-For GTK4/libadwaita apps (Nautilus), also symlink the theme's GTK4 CSS:
+Initialize it, then enable greetd (disable any other display manager first):
 
 ```
-$ mkdir -p ~/.config/gtk-4.0
-$ ln -sf /usr/share/themes/catppuccin-mocha-mauve-standard+default/gtk-4.0/gtk.css ~/.config/gtk-4.0/gtk.css
-$ ln -sf /usr/share/themes/catppuccin-mocha-mauve-standard+default/gtk-4.0/gtk-dark.css ~/.config/gtk-4.0/gtk-dark.css
-$ ln -sf /usr/share/themes/catppuccin-mocha-mauve-standard+default/gtk-4.0/assets ~/.config/gtk-4.0/assets
+$ sudo noctalia-greeter-apply-appearance --setup-system
+$ sudo systemctl enable greetd
 ```
 
-(This is automated by `theme-switch` going forward.)
-
-### Obsidian Setup
-
-After installing Obsidian and opening your vault(s):
-
-1. Install the **Catppuccin** theme: Settings → Appearance → Themes → Manage → search "Catppuccin" → Install and use
-2. Install community plugins:
-   - **Style Settings** (by mgmeyers)
-   - **Advanced URI** (by Vinzent) — required for `theme-switch` to reload Obsidian
-3. Disable appearance sync (if using Obsidian Sync):
-   Settings → Sync → Vault configuration sync → turn OFF **Appearance settings**
-
-## Theme Switching
-
-Switch between Catppuccin flavors across all apps:
+To sync the wallpaper and palette to the login screen without a password prompt:
 
 ```
-$ theme-switch catppuccin-mocha
-$ theme-switch catppuccin-frappe
-$ theme-switch catppuccin-macchiato
-$ theme-switch catppuccin-latte
+$ sudo noctalia-greeter passwordless-sync enable <user>
 ```
 
-This updates Kitty, Hyprland, Waybar, Wofi, Neovim, zsh syntax highlighting, qBittorrent, spotify-launcher, tmux, Zen Browser, GTK theme (GTK3 + GTK4/libadwaita), cursor theme, swaync notifications, and Obsidian.
+Then in Noctalia, **Settings → Security → Noctalia Greeter**: click **Sync Now** and turn on **Auto-Sync Greeter**.
+
+Extra greeter options (default user, clock, keyboard layout, output) go in `/var/lib/noctalia-greeter/greeter.toml`.
+
+## Generated files
+
+These are per-machine or regenerated by Noctalia on every palette change, so they are gitignored:
+
+```
+.config/hypr/monitors.lua
+.config/nvim/lua/matugen.lua
+.config/tmux/themes/noctalia.conf
+.config/fastfetch/themes/noctalia.jsonc
+```
+
+`.config/nvim/lua/plugins/base16.lua` is committed: Noctalia only creates it once, and it makes a fresh clone install the plugin.
 
 ## Add to the dotfiles repo
 
 To add a new config, move it from its current location into the dotfiles directory, mirroring the original path structure, then re-run stow.
 
 ```
-$ mv ~/.config/waybar ~/dotfiles/.config/waybar
+$ mv ~/.config/fastfetch ~/.dotfiles/.config/fastfetch
 $ cd ~/.dotfiles
 $ stow .
 ```
