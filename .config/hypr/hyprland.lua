@@ -98,11 +98,12 @@ hl.config({
 	},
 
 	input = {
-		kb_layout = "us,is",
-		kb_options = "",
+		kb_layout = "is",
 
 		follow_mouse = 1,
 		sensitivity = 0,
+
+		natural_scroll = false,
 
 		touchpad = {
 			natural_scroll = false,
