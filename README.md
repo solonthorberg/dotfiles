@@ -33,9 +33,6 @@ sudo pacman -S \
   ttf-jetbrains-mono-nerd \
   noto-fonts \
   noto-fonts-emoji \
-  grim \
-  slurp \
-  hyprshot \
   wl-clipboard \
   fastfetch \
   pipewire \

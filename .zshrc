@@ -84,3 +84,6 @@ eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
 
 export EDITOR=nvim
+
+# Created by `pipx` on 2026-10-30 19:01:10
+export PATH="$PATH:/home/solonthorberg/.local/bin"

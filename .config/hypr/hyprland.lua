@@ -19,7 +19,7 @@ local menu = "noctalia msg panel-toggle launcher"
 -------------------
 
 hl.on("hyprland.start", function()
-	hl.exec_cmd("noctalia")
+	hl.exec_cmd("dbus-update-activation-environment --systemd QT_QPA_PLATFORMTHEME && noctalia")
 	hl.exec_cmd("aw-server")
 	hl.exec_cmd("sleep 5 && aw-awatcher")
 end)
@@ -161,64 +161,96 @@ hl.device({
 
 local mainMod = "SUPER"
 
-hl.bind(mainMod .. " + Q", hl.dsp.exec_cmd(terminal))
-hl.bind(mainMod .. " + C", hl.dsp.window.close())
-hl.bind(mainMod .. " + M", hl.dsp.exit())
-hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
-hl.bind(mainMod .. " + F", hl.dsp.window.float({ action = "toggle" }))
-hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd(menu))
-hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
-hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit"))
+hl.bind(mainMod .. " + Q", hl.dsp.exec_cmd(terminal), { description = "Open terminal" })
+hl.bind(mainMod .. " + C", hl.dsp.window.close(), { description = "Close window" })
+hl.bind(mainMod .. " + M", hl.dsp.exit(), { description = "Exit Hyprland" })
+hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager), { description = "Open file manager" })
+hl.bind(mainMod .. " + F", hl.dsp.window.float({ action = "toggle" }), { description = "Toggle floating" })
+hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd(menu), { description = "App launcher" })
+hl.bind(mainMod .. " + P", hl.dsp.window.pseudo(), { description = "Toggle pseudotile" })
+hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit"), { description = "Toggle split direction" })
 
 -- Noctalia
-hl.bind(mainMod .. " + N", hl.dsp.exec_cmd("noctalia msg notification-dnd-toggle"))
-hl.bind(mainMod .. " + X", hl.dsp.exec_cmd("noctalia msg panel-toggle control-center"))
+hl.bind(
+	mainMod .. " + N",
+	hl.dsp.exec_cmd("noctalia msg notification-dnd-toggle"),
+	{ description = "Toggle Do Not Disturb" }
+)
+hl.bind(
+	mainMod .. " + X",
+	hl.dsp.exec_cmd("noctalia msg panel-toggle control-center"),
+	{ description = "Control Center" }
+)
 
 -- Lock
-hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("noctalia msg screen-lock"))
+hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("noctalia msg screen-lock"), { description = "Lock screen" })
 
 -- Move focus
-hl.bind(mainMod .. " + left", hl.dsp.focus({ direction = "left" }))
-hl.bind(mainMod .. " + right", hl.dsp.focus({ direction = "right" }))
-hl.bind(mainMod .. " + up", hl.dsp.focus({ direction = "up" }))
-hl.bind(mainMod .. " + down", hl.dsp.focus({ direction = "down" }))
+hl.bind(mainMod .. " + left", hl.dsp.focus({ direction = "left" }), { description = "Focus left" })
+hl.bind(mainMod .. " + right", hl.dsp.focus({ direction = "right" }), { description = "Focus right" })
+hl.bind(mainMod .. " + up", hl.dsp.focus({ direction = "up" }), { description = "Focus up" })
+hl.bind(mainMod .. " + down", hl.dsp.focus({ direction = "down" }), { description = "Focus down" })
 
 -- Workspaces 1-10 (key 0 = workspace 10)
 for i = 1, 10 do
 	local key = i % 10
-	hl.bind(mainMod .. " + " .. key, hl.dsp.focus({ workspace = i }))
-	hl.bind(mainMod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = i }))
+	hl.bind(mainMod .. " + " .. key, hl.dsp.focus({ workspace = i }), { description = "Go to workspace " .. i })
+	hl.bind(
+		mainMod .. " + SHIFT + " .. key,
+		hl.dsp.window.move({ workspace = i }),
+		{ description = "Move window to workspace " .. i }
+	)
 end
 
 -- Scratchpad
-hl.bind(mainMod .. " + Z", hl.dsp.workspace.toggle_special("magic"))
-hl.bind(mainMod .. " + SHIFT + Z", hl.dsp.window.move({ workspace = "special:magic" }))
+hl.bind(mainMod .. " + Z", hl.dsp.workspace.toggle_special("magic"), { description = "Toggle scratchpad" })
+hl.bind(
+	mainMod .. " + SHIFT + Z",
+	hl.dsp.window.move({ workspace = "special:magic" }),
+	{ description = "Move window to scratchpad" }
+)
 
 -- Scroll through workspaces
-hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
-hl.bind(mainMod .. " + mouse_up", hl.dsp.focus({ workspace = "e-1" }))
+hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }), { description = "Next workspace" })
+hl.bind(mainMod .. " + mouse_up", hl.dsp.focus({ workspace = "e-1" }), { description = "Previous workspace" })
 
 -- Move/resize with mouse
-hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
-hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
+hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true, description = "Drag window" })
+hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true, description = "Resize window" })
 
 -- Media keys (playerctl)
-hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"), { locked = true })
-hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
-hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
-hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true })
+hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"), { locked = true, description = "Next track" })
+hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true, description = "Play/pause" })
+hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true, description = "Play/pause" })
+hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true, description = "Previous track" })
 
 -- Keyboard layout
 hl.bind(
 	mainMod .. " + SHIFT + K",
-	hl.dsp.exec_cmd("hyprctl switchxkblayout rdmctmzt-wireless-2.4g-dongle-keyboard next")
+	hl.dsp.exec_cmd("hyprctl switchxkblayout rdmctmzt-wireless-2.4g-dongle-keyboard next"),
+	{ description = "Switch keyboard layout (US/IS)" }
 )
 
 -- Screenshot
-hl.bind(mainMod .. " + SHIFT + S", hl.dsp.exec_cmd("hyprshot -m region --clipboard-only"))
+hl.bind(
+	mainMod .. " + SHIFT + S",
+	hl.dsp.exec_cmd("noctalia msg screenshot-region"),
+	{ description = "Screenshot region" }
+)
 
 -- Clipboard
-hl.bind(mainMod .. " + V", hl.dsp.exec_cmd("noctalia msg panel-toggle clipboard"))
+hl.bind(
+	mainMod .. " + V",
+	hl.dsp.exec_cmd("noctalia msg panel-toggle clipboard"),
+	{ description = "Clipboard history" }
+)
+
+-- Keybind Cheatsheet
+hl.bind(
+	mainMod .. " + slash",
+	hl.dsp.exec_cmd("noctalia msg panel-toggle kenn/keybind-cheatsheet:cheatsheet"),
+	{ description = "Keybind cheatsheet" }
+)
 
 --------------------------------
 ---- WINDOWS AND WORKSPACES ----
