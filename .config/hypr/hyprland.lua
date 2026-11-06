@@ -35,6 +35,7 @@ hl.env("XCURSOR_SIZE", "24")
 hl.env("MOZ_ENABLE_WAYLAND", "1")
 hl.env("MOZ_DISABLE_RDD_SANDBOX", "1")
 hl.env("MOZ_DBUS_REMOTE", "1")
+hl.env("XDG_DATA_DIRS", "/var/lib/flatpak/exports/share:/usr/local/share:/usr/share")
 
 -----------------------
 ---- LOOK AND FEEL ----
