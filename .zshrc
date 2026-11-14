@@ -40,6 +40,11 @@ eval "$(oh-my-posh init zsh --config $HOME/.config/ohmyposh/base.toml)"
 
 # keybinds
 bindkey -v
+# fix backspace after leaving visual mode
+bindkey -M viins '^?' backward-delete-char
+bindkey -M viins '^H' backward-delete-char
+bindkey -M viins '^W' backward-kill-word
+bindkey -M viins '^U' backward-kill-line
 
 # history configuration
 HISTFILE=~/.zsh_history
